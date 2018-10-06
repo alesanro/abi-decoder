@@ -108,7 +108,7 @@ function padZeros (address) {
 };
 
 function _decodeLogs(logs) {
-  return logs.map(function(logItem) {
+  return logs.map(function(logItem, itemIdx) {
     const methodID = logItem.topics[0].slice(2);
     const method = state.methodIDs[methodID];
     if (method) {
@@ -156,7 +156,8 @@ function _decodeLogs(logs) {
       return {
         name: method.name,
         events: decodedParams,
-        address: logItem.address
+        address: logItem.address,
+        rawLogIndex: itemIdx
       };
     }
   });
